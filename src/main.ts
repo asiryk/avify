@@ -14,7 +14,10 @@ export default class AvifyPlugin extends Plugin {
 
 		this.magickAvailable = await checkMagickAvailable();
 		if (!this.magickAvailable) {
-			new Notice("Avify: ImageMagick not found. Install with: brew install imagemagick");
+			const hint = process.platform === "darwin"
+				? "brew install imagemagick"
+				: "sudo apt install imagemagick";
+			new Notice(`Avify: ImageMagick not found. Install with: ${hint}`);
 		}
 	}
 

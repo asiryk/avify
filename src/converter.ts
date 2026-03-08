@@ -2,9 +2,13 @@ import { execFile } from "child_process";
 import { tmpdir } from "os";
 import { join } from "path";
 
+const EXTRA_PATHS = process.platform === "darwin"
+	? "/usr/local/bin:/opt/homebrew/bin"
+	: "/usr/local/bin";
+
 const ENV = {
 	...process.env,
-	PATH: `${process.env.PATH}:/usr/local/bin:/opt/homebrew/bin`,
+	PATH: `${process.env.PATH}:${EXTRA_PATHS}`,
 };
 
 function exec(cmd: string, args: string[]): Promise<string> {
@@ -26,17 +30,20 @@ export async function convertToAvif(inputPath: string, quality: number): Promise
 }
 
 export async function computeSha1(filePath: string): Promise<string> {
-	const stdout = await exec("shasum", ["-a", "1", filePath]);
+	const cmd = process.platform === "darwin" ? "shasum" : "sha1sum";
+	const args = process.platform === "darwin" ? ["-a", "1", filePath] : [filePath];
+	const stdout = await exec(cmd, args);
 	const hash = stdout.trim().split(/\s+/)[0];
 	if (!hash || hash.length !== 40) {
-		throw new Error(`Unexpected shasum output: ${stdout}`);
+		throw new Error(`Unexpected ${cmd} output: ${stdout}`);
 	}
 	return hash;
 }
 
 export async function checkMagickAvailable(): Promise<boolean> {
+	const cmd = process.platform === "win32" ? "where" : "which";
 	try {
-		await exec("which", ["magick"]);
+		await exec(cmd, ["magick"]);
 		return true;
 	} catch {
 		return false;
