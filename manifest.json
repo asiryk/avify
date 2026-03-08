@@ -1,0 +1,10 @@
+{
+	"id": "avify",
+	"name": "Avify",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Converts dropped/pasted images to AVIF and organizes them in Assets folder",
+	"author": "Obsidian",
+	"authorUrl": "https://obsidian.md",
+	"isDesktopOnly": true
+}
