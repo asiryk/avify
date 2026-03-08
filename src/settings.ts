@@ -52,7 +52,7 @@ export class AvifySettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Quality")
-			.setDesc("AVIF compression quality (1–100)")
+			.setDesc("Compression quality for AVIF output (1–100)")
 			.addSlider((slider) =>
 				slider
 					.setLimits(1, 100, 1)

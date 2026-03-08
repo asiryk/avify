@@ -8,7 +8,7 @@ export default class AvifyPlugin extends Plugin {
 	magickAvailable = false;
 
 	async onload() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<AvifySettings>);
 		registerHandler(this);
 		this.addSettingTab(new AvifySettingTab(this.app, this));
 

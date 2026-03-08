@@ -8,6 +8,7 @@ export default tseslint.config(
 		languageOptions: {
 			globals: {
 				...globals.browser,
+				...globals.node,
 			},
 			parserOptions: {
 				projectService: {
@@ -22,6 +23,14 @@ export default tseslint.config(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		rules: {
+			"obsidianmd/ui/sentence-case": ["error", {
+				enforceCamelCaseLower: true,
+				ignoreWords: ["AVIF", "ImageMagick"],
+			}],
+		},
+	},
 	globalIgnores([
 		"node_modules",
 		"dist",

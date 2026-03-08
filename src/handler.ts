@@ -115,7 +115,7 @@ export function registerHandler(plugin: AvifyPlugin): void {
 			if (images.length === 0) return;
 
 			evt.preventDefault();
-			handleImages(plugin, images, editor, view);
+			void handleImages(plugin, images, editor, view);
 		}),
 	);
 
@@ -127,7 +127,7 @@ export function registerHandler(plugin: AvifyPlugin): void {
 			if (images.length === 0) return;
 
 			evt.preventDefault();
-			handleImages(plugin, images, editor, view);
+			void handleImages(plugin, images, editor, view);
 		}),
 	);
 }
